@@ -32,7 +32,8 @@ defmodule JsonApi.MixProject do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [
+    [ 
+      {:gpio_control, path: "../gpio_control"},
       {:led, path: "../led"},
       {:circuits_gpio, "~> 0.4"},
       {:phoenix, "~> 1.5.4"},

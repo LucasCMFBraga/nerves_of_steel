@@ -5,50 +5,25 @@ defmodule GpioControl do
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> GpioControl.hello()
-      :world
 
   """
-
-  def startup(n_gpio\\"" ,gpio_list\\"") when n_gpio >= 27  do
-    gpio=gpio_list
-    gpio
+  def read(gpio_n) do
+    {:ok, gpio} = Circuits.GPIO.open(gpio_n, :input)
+    value = Circuits.GPIO.read(gpio)
+    %{"gpio" => gpio_n, "value" => value}
   end
 
-  def startup(n_gpio,gpio_list) when n_gpio > 8 do
-  {:ok, gpio} = Circuits.GPIO.open(n_gpio, :input)
-  gpio_list=Map.put(gpio_list,"gpio#{n_gpio}",gpio)
-   
-  startup n_gpio+1,gpio_list 
+  def write(gpio_n,value) do
+    {:ok, gpio} = Circuits.GPIO.open(gpio_n, :output)
+    Circuits.GPIO.write(gpio, value)
+    %{"gpio" => gpio_n, "value" => value}
   end
 
-  def startup(n_gpio,gpio_list) do
-  {:ok, gpio} = Circuits.GPIO.open(n_gpio, :input)
-  Circuits.GPIO.set_pull_mode(gpio, :pullup)
-  gpio_list=Map.put(gpio_list,"gpio#{n_gpio}",gpio)
-
-  startup n_gpio+1,gpio_list
-  end
-
-  def read() do
-
-  end
-
-  def write() do
-
-  end
-
-  def setup() do
-
+  def setup(gpio_n,pull) do
+    {:ok, gpio} = Circuits.GPIO.open(gpio_n, :input)
+    Circuits.GPIO.set_pull_mode(gpio, String.to_atom(pull))
+    %{"gpio" => gpio_n, "mode" => pull}
   end
   
-  def info() do
-    gpio_info=[%{}]
-
-  end
 
 end

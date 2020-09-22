@@ -1,20 +1,25 @@
 defmodule JsonApiWeb.GpioView do
   use JsonApiWeb, :view
 
-  def render("write.json", %{value: value}) do
-    %{gpio: 16, value: value}
+  def render("write.json", %{status: status}) do
+    %{
+      gpio: status["gpio"], 
+      value: status["value"]
+    }
   end
 
-  def render("read.json", %{value: value}) do
-    %{gpio: 26, value: value}
+  def render("read.json", %{status: status}) do
+    %{
+      gpio: status["gpio"], 
+      value: status["value"]
+    }
   end
 
-  def render("setup.json", _assigns) do
-    [
-      %{
-        gpio: 16,
-        pull_mode: "pullup"
-      }
-    ]
+  def render("setup.json", %{status: status}) do
+    %{
+      gpio: status["gpio"],
+      pull_mode: status["mode"]
+    }
+    
   end
 end
