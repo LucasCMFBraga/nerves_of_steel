@@ -15,3 +15,4 @@ defmodule JsonApiWeb.GpioController do
 
 end
 
+    

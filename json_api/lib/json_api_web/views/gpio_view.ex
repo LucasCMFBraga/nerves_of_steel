@@ -19,7 +19,7 @@ defmodule JsonApiWeb.GpioView do
     %{
       gpio: status["gpio"],
       pull_mode: status["mode"]
-    }
-    
+    }  
   end
+
 end
